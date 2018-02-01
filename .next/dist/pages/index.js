@@ -50,9 +50,21 @@ var _Ant = require('../components/Ant');
 
 var _Ant2 = _interopRequireDefault(_Ant);
 
+var _Bird = require('../components/Bird');
+
+var _Bird2 = _interopRequireDefault(_Bird);
+
+var _Cat = require('../components/Cat');
+
+var _Cat2 = _interopRequireDefault(_Cat);
+
 var _DisplayForm = require('../components/DisplayForm');
 
 var _DisplayForm2 = _interopRequireDefault(_DisplayForm);
+
+var _StudentProfile = require('../components/StudentProfile');
+
+var _StudentProfile2 = _interopRequireDefault(_StudentProfile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71,61 +83,39 @@ var formTailLayout = {
   wrapperCol: { span: 8, offset: 4 }
 };
 
-var DynamicRule = function (_Component) {
-  (0, _inherits3.default)(DynamicRule, _Component);
+var Admission = function (_Component) {
+  (0, _inherits3.default)(Admission, _Component);
 
-  function DynamicRule() {
-    var _ref;
+  function Admission() {
+    (0, _classCallCheck3.default)(this, Admission);
 
-    var _temp, _this, _ret;
-
-    (0, _classCallCheck3.default)(this, DynamicRule);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = DynamicRule.__proto__ || (0, _getPrototypeOf2.default)(DynamicRule)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      checkNick: false
-    }, _this.check = function () {
-      _this.props.form.validateFields(function (err) {
-        if (!err) {
-          console.info('success');
-        }
-      });
-    }, _this.handleChange = function (e) {
-      _this.setState({
-        checkNick: e.target.checked
-      }, function () {
-        _this.props.form.validateFields(['nickname'], { force: true });
-      });
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    return (0, _possibleConstructorReturn3.default)(this, (Admission.__proto__ || (0, _getPrototypeOf2.default)(Admission)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(DynamicRule, [{
+  (0, _createClass3.default)(Admission, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(_index2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 39
         }
       }, _react2.default.createElement(_DisplayForm2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57
+          lineNumber: 40
         }
-      }), _react2.default.createElement(_Ant2.default, {
+      }), _react2.default.createElement(_StudentProfile2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58
+          lineNumber: 44
         }
       }));
     }
   }]);
 
-  return DynamicRule;
+  return Admission;
 }(_react.Component);
 
-exports.default = (0, _nextReduxWrapper2.default)(_store.initStore, null)(DynamicRule);
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL2luZGV4LmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50Iiwid2l0aFJlZHV4IiwiaW5pdFN0b3JlIiwiTGF5b3V0IiwiQW50IiwiRGlzcGxheUZvcm0iLCJGb3JtSXRlbSIsIkl0ZW0iLCJPcHRpb24iLCJmb3JtSXRlbUxheW91dCIsImxhYmVsQ29sIiwic3BhbiIsIndyYXBwZXJDb2wiLCJmb3JtVGFpbExheW91dCIsIm9mZnNldCIsIkR5bmFtaWNSdWxlIiwic3RhdGUiLCJjaGVja05pY2siLCJjaGVjayIsInByb3BzIiwiZm9ybSIsInZhbGlkYXRlRmllbGRzIiwiZXJyIiwiY29uc29sZSIsImluZm8iLCJoYW5kbGVDaGFuZ2UiLCJlIiwic2V0U3RhdGUiLCJ0YXJnZXQiLCJjaGVja2VkIiwiZm9yY2UiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPLEFBQVM7Ozs7QUFhaEIsQUFBTzs7OztBQUVQLEFBQVMsQUFBaUI7O0FBQzFCLEFBQU8sQUFBWTs7OztBQUNuQixBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBTyxBQUFpQjs7Ozs7Ozs7O0FBRXhCLElBQU0sV0FBVyxlQUFqQixBQUFzQjtBQUN0QixJQUFNLFNBQVMsaUJBQWYsQUFBc0I7O0FBRXRCLElBQU07WUFDTSxFQUFFLE1BRFMsQUFDWCxBQUFRLEFBQ2xCO2NBQVksRUFBRSxNQUZoQixBQUF1QixBQUVULEFBQVE7QUFGQyxBQUNyQjtBQUdGLElBQU07WUFDTSxFQUFFLE1BRFMsQUFDWCxBQUFRLEFBQ2xCO2NBQVksRUFBRSxNQUFGLEFBQVEsR0FBRyxRQUZ6QixBQUF1QixBQUVULEFBQW1CO0FBRlYsQUFDckI7O0ksQUFJSTs7Ozs7Ozs7Ozs7Ozs7c05BQ0osQTtpQkFBUSxBLEFBQ0s7QUFETCxBQUNOLGFBRUYsQSxRQUFRLFlBQU0sQUFDWjtZQUFBLEFBQUssTUFBTCxBQUFXLEtBQVgsQUFBZ0IsZUFBZSxVQUFBLEFBQUMsS0FBUSxBQUN0QztZQUFJLENBQUosQUFBSyxLQUFLLEFBQ1I7a0JBQUEsQUFBUSxLQUFSLEFBQWEsQUFDZDtBQUNGO0FBSkQsQUFLRDtBLGFBQ0QsQSxlQUFlLFVBQUEsQUFBQyxHQUFNLEFBQ3BCO1lBQUEsQUFBSzttQkFFVSxFQUFBLEFBQUUsT0FGakIsQUFDRSxBQUNzQjtBQUR0QixBQUNFLFNBRUYsWUFBTSxBQUNKO2NBQUEsQUFBSyxNQUFMLEFBQVcsS0FBWCxBQUFnQixlQUFlLENBQS9CLEFBQStCLEFBQUMsYUFBYSxFQUFFLE9BQS9DLEFBQTZDLEFBQVMsQUFDdkQ7QUFOSCxBQVFEO0E7Ozs7OzZCQUNRLEFBQ1A7NkJBQ0UsQUFBQzs7b0JBQUQ7c0JBQUEsQUFDRTtBQURGO0FBQUEsT0FBQSxrQkFDRSxBQUFDOztvQkFBRDtzQkFERixBQUNFLEFBQ0E7QUFEQTtBQUFBLDBCQUNBLEFBQUM7O29CQUFEO3NCQUhKLEFBQ0UsQUFFRSxBQUdMO0FBSEs7QUFBQTs7Ozs7QUF6QmtCLEEsQUErQjFCOztrQkFBZSxBQUFVLGtEQUFWLEFBQXFCLE1BQXBDLEFBQWUsQUFBMkIiLCJmaWxlIjoiaW5kZXguanM/ZW50cnkiLCJzb3VyY2VSb290IjoiL1VzZXJzL3Bhbmdwb25kL1NpdGVzL05leHRnZW5zb2Z0L2FkbWlzc2lvbiJ9
+exports.default = (0, _nextReduxWrapper2.default)(_store.initStore, null)(Admission);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL2luZGV4LmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50Iiwid2l0aFJlZHV4IiwiaW5pdFN0b3JlIiwiTGF5b3V0IiwiQW50IiwiQmlyZCIsIkNhdCIsIkRpc3BsYXlGb3JtIiwiU3R1ZGVudFByb2ZpbGUiLCJGb3JtSXRlbSIsIkl0ZW0iLCJPcHRpb24iLCJmb3JtSXRlbUxheW91dCIsImxhYmVsQ29sIiwic3BhbiIsIndyYXBwZXJDb2wiLCJmb3JtVGFpbExheW91dCIsIm9mZnNldCIsIkFkbWlzc2lvbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBUzs7OztBQWFoQixBQUFPOzs7O0FBRVAsQUFBUyxBQUFpQjs7QUFDMUIsQUFBTyxBQUFZOzs7O0FBQ25CLEFBQU8sQUFBUzs7OztBQUNoQixBQUFPLEFBQVU7Ozs7QUFDakIsQUFBTyxBQUFTOzs7O0FBQ2hCLEFBQU8sQUFBaUI7Ozs7QUFDeEIsQUFBTyxBQUFvQjs7Ozs7Ozs7O0FBRTNCLElBQU0sV0FBVyxlQUFqQixBQUFzQjtBQUN0QixJQUFNLFNBQVMsaUJBQWYsQUFBc0I7O0FBRXRCLElBQU07WUFDTSxFQUFFLE1BRFMsQUFDWCxBQUFRLEFBQ2xCO2NBQVksRUFBRSxNQUZoQixBQUF1QixBQUVULEFBQVE7QUFGQyxBQUNyQjtBQUdGLElBQU07WUFDTSxFQUFFLE1BRFMsQUFDWCxBQUFRLEFBQ2xCO2NBQVksRUFBRSxNQUFGLEFBQVEsR0FBRyxRQUZ6QixBQUF1QixBQUVULEFBQW1CO0FBRlYsQUFDckI7O0lBSUksQTs7Ozs7Ozs7Ozs7NkJBQ0ssQUFDUDs2QkFDRSxBQUFDOztvQkFBRDtzQkFBQSxBQUNFO0FBREY7QUFBQSxPQUFBLGtCQUNFLEFBQUM7O29CQUFEO3NCQURGLEFBQ0UsQUFJQTtBQUpBO0FBQUEsMEJBSUEsQUFBQzs7b0JBQUQ7c0JBTkosQUFDRSxBQUtFLEFBR0w7QUFISztBQUFBOzs7OztBQVJnQixBLEFBY3hCOztrQkFBZSxBQUFVLGtEQUFWLEFBQXFCLE1BQXBDLEFBQWUsQUFBMkIiLCJmaWxlIjoiaW5kZXguanM/ZW50cnkiLCJzb3VyY2VSb290IjoiL1VzZXJzL3Bhbmdwb25kL1NpdGVzL05leHRnZW5zb2Z0L2FkbWlzc2lvbiJ9

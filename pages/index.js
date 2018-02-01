@@ -16,7 +16,10 @@ import withRedux from 'next-redux-wrapper'
 import { initStore } from '../store'
 import Layout from '../index'
 import Ant from '../components/Ant'
+import Bird from '../components/Bird'
+import Cat from '../components/Cat'
 import DisplayForm from '../components/DisplayForm'
+import StudentProfile from '../components/StudentProfile'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -30,35 +33,18 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 4 },
 }
 
-class DynamicRule extends Component {
-  state = {
-    checkNick: false,
-  }
-  check = () => {
-    this.props.form.validateFields((err) => {
-      if (!err) {
-        console.info('success')
-      }
-    })
-  }
-  handleChange = (e) => {
-    this.setState(
-      {
-        checkNick: e.target.checked,
-      },
-      () => {
-        this.props.form.validateFields(['nickname'], { force: true })
-      },
-    )
-  }
+class Admission extends Component {
   render() {
     return (
       <Layout>
         <DisplayForm />
-        <Ant />
+        {/* <Ant />
+        <Bird />
+        <Cat /> */}
+        <StudentProfile />
       </Layout>
     )
   }
 }
 
-export default withRedux(initStore, null)(DynamicRule)
+export default withRedux(initStore, null)(Admission)

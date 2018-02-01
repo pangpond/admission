@@ -42,14 +42,27 @@ class Ant extends Component {
     })
   }
   handleChange = (e) => {
-    this.setState(
-      {
-        checkNick: e.target.checked,
-      },
-      () => {
-        this.props.form.validateFields(['nickname'], { force: true })
-      },
-    )
+    if (e.target.name === 'checkNick') {
+      this.setState(
+        {
+          checkNick: e.target.checked,
+        },
+        () => {
+          this.props.form.validateFields(['nickname'], { force: true })
+        },
+      )
+    }
+
+    if (e.target.name === 'checkFacebook') {
+      this.setState(
+        {
+          checkFacebook: e.target.checked,
+        },
+        () => {
+          this.props.form.validateFields(['facebook'], { force: true })
+        },
+      )
+    }
   }
   inputChange = (e) => {
     const { inputChange } = this.props
@@ -95,12 +108,32 @@ class Ant extends Component {
               },
             ],
             onChange: this.inputChange,
-            title: 'profile',
           })(<Input title="profile" placeholder="Please input your nickname" />)}
         </FormItem>
+
+        <FormItem {...formItemLayout} label="Facebook">
+          {getFieldDecorator('facebook', {
+            rules: [
+              {
+                required: this.state.checkFacebook,
+                message: 'Please input your facebook URL',
+              },
+            ],
+            onChange: this.inputChange,
+          })(<Input title="social" placeholder="Please input your facebook URL" />)}
+        </FormItem>
         <FormItem {...formTailLayout}>
-          <Checkbox value={this.state.checkNick} onChange={this.handleChange}>
+          <Checkbox value={this.state.checkNick} name="checkNick" onChange={this.handleChange}>
             Nickname is required
+          </Checkbox>
+        </FormItem>
+        <FormItem {...formTailLayout}>
+          <Checkbox
+            value={this.state.checkFacebook}
+            name="checkFacebook"
+            onChange={this.handleChange}
+          >
+            Facebook is required
           </Checkbox>
         </FormItem>
         <FormItem {...formTailLayout}>
