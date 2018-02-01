@@ -1,30 +1,64 @@
-import Head from 'next/head'
+import React, { Component } from 'react'
+import {
+  Form,
+  Input,
+  Checkbox,
+  Select,
+  InputNumber,
+  DatePicker,
+  Switch,
+  Slider,
+  Button,
+  LocaleProvider,
+} from 'antd'
+import withRedux from 'next-redux-wrapper'
 
-export default () => (
-  <div>
-    <Head>
-      <link
-        rel="stylesheet"
-        href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900"
-      />
-      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700" />
-      <link
-        rel="stylesheet"
-        href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-      />
-      <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
-    </Head>
-    <style jsx global>
-      {`
-        body {
-          background: #f1f1f1;
-        }
-      `}
-    </style>
-    Hello
-  </div>
-)
+import { initStore } from '../store'
+import Layout from '../index'
+import Ant from '../components/Ant'
+import DisplayForm from '../components/DisplayForm'
+
+const FormItem = Form.Item
+const Option = Select.Option
+
+const formItemLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8 },
+}
+const formTailLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8, offset: 4 },
+}
+
+class DynamicRule extends Component {
+  state = {
+    checkNick: false,
+  }
+  check = () => {
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        console.info('success')
+      }
+    })
+  }
+  handleChange = (e) => {
+    this.setState(
+      {
+        checkNick: e.target.checked,
+      },
+      () => {
+        this.props.form.validateFields(['nickname'], { force: true })
+      },
+    )
+  }
+  render() {
+    return (
+      <Layout>
+        <DisplayForm />
+        <Ant />
+      </Layout>
+    )
+  }
+}
+
+export default withRedux(initStore, null)(DynamicRule)
