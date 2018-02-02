@@ -50,9 +50,9 @@ class UI extends Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
-  };
+  }
   handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
@@ -60,33 +60,33 @@ class UI extends Component {
     })
   }
   handleConfirmBlur = (e) => {
-    const value = e.target.value;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    const { value } = e.target
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value })
   }
   checkPassword = (rule, value, callback) => {
-    const form = this.props.form;
+    const { form } = this.props
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('Two passwords that you enter is inconsistent!')
     } else {
-      callback();
+      callback()
     }
   }
   checkConfirm = (rule, value, callback) => {
-    const form = this.props.form;
+    const { form } = this.props
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true })
     }
-    callback();
+    callback()
   }
 
   handleWebsiteChange = (value) => {
-    let autoCompleteResult;
+    let autoCompleteResult
     if (!value) {
       autoCompleteResult = []
     } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`)
     }
-    this.setState({ autoCompleteResult });
+    this.setState({ autoCompleteResult })
   }
 
   inputChange = (e) => {
@@ -107,7 +107,7 @@ class UI extends Component {
         xs: { span: 24 },
         sm: { span: 16 },
       },
-    };
+    }
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
@@ -119,7 +119,7 @@ class UI extends Component {
           offset: 8,
         },
       },
-    };
+    }
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '86',
     })(
@@ -127,11 +127,11 @@ class UI extends Component {
         <Option value="86">+86</Option>
         <Option value="87">+87</Option>
       </Select>
-    );
+    )
 
     const websiteOptions = autoCompleteResult.map(website => (
       <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
+    ))
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -146,7 +146,7 @@ class UI extends Component {
               required: true, message: 'Please input your E-mail!',
             }],
           })(
-            <Input />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
           )}
         </FormItem>
         <FormItem
@@ -260,7 +260,7 @@ class UI extends Component {
           <Button type="primary" htmlType="submit">Register</Button>
         </FormItem>
       </Form>
-    );
+    )
   }
 }
 
