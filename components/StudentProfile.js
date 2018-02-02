@@ -18,13 +18,15 @@ import { inputChange } from '../actions'
 
 import Profile from '../components/Form/Profile'
 import Address from '../components/Form/Address'
+import UI from '../components/Form/UI'
 
 class StudentProfile extends Component {
   render() {
     return (
       <div>
-        <Profile />
-        <Address />
+        <UI />
+        {/* <Profile />
+        <Address /> */}
       </div>
     )
   }
