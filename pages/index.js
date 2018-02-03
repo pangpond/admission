@@ -37,11 +37,11 @@ class Admission extends Component {
   render() {
     return (
       <Layout>
-        <DisplayForm />
         {/* <Ant />
         <Bird />
         <Cat /> */}
         <StudentProfile />
+        <DisplayForm />
       </Layout>
     )
   }

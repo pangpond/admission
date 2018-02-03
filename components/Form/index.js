@@ -17,7 +17,8 @@ import { bindActionCreators } from 'redux'
 
 import { inputChange } from '../../actions'
 
-import InputWithIcon from './Input/WithIcon'
+import Basic from './Input/Basic'
+import Date from './Input/Date'
 
 const FormItem = Form.Item
 
@@ -38,15 +39,17 @@ class FormIndex extends Component {
   state = {
     checkNick: false,
     fields: {
-      username: {
-        value: 'pangpond',
-      },
-      password: {
-        value: '',
-      },
-      lastname: {
-        value: '',
-      },
+      username: { value: 'pangpond' },
+      password: { value: '' },
+      withicon: { value: '' },
+      tooltip: { value: '' },
+      email: { value: '' },
+      datePicker: { value: '' },
+      dateTimePicker: { value: '' },
+      monthPicker: { value: '' },
+      rangePicker: { value: '' },
+      rangeTimePicker: { value: '' },
+      timePicker: { value: '' },
     },
   }
 
@@ -95,7 +98,8 @@ class FormIndex extends Component {
     const fields = this.state.fields
     return (
       <div>
-        <InputWithIcon {...fields} onChange={this.handleFormChange} />
+        <Basic {...fields} onChange={this.handleFormChange} />
+        <Date {...fields} onChange={this.handleFormChange} />
 
         <FormItem {...formItemLayout} label="Name">
           {getFieldDecorator('username', {
