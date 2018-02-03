@@ -126,26 +126,18 @@ const Info = Form.create({
     inputChange(title, id, value)
   }
   const changeWeight = (value) => {
-    if (value === '') {
-      console.log('required')
-      props.form.validateFields(['weight'], { force: true })
-    }
-
     const { inputChange } = props
     inputChange('info', 'weight', value)
   }
 
   const changeHeight = (value) => {
-    if (value === '') {
-      console.log('required')
-      props.form.validateFields(['height'], (err, values) => {
-        console.log(err)
-        console.log(values)
-      })
-    }
-
     const { inputChange } = props
     inputChange('info', 'height', value)
+  }
+
+  const changeCheckButton = (e, name) => {
+    const { inputChange } = props
+    inputChange('info', name, e.target.value)
   }
 
   // props.form.setFieldsValue({ weight: 50 })
@@ -177,7 +169,7 @@ const Info = Form.create({
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 initialValue: ['female'],
                 valuePropName: 'checked',
-                onChange: inputChangeFunc,
+                onChange: e => changeCheckButton(e, 'gender'),
               })(
                 <RadioGroup style={{ float: 'left' }} defaultValue="female">
                   <RadioButton value="male">ชาย</RadioButton>
@@ -192,11 +184,11 @@ const Info = Form.create({
           </Col>
           <Col {...colTwiceLayout}>
             <FormItem {...formItemLayout} label="หมู่เลือด">
-              {getFieldDecorator('religion', {
+              {getFieldDecorator('blood', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 initialValue: ['b'],
                 valuePropName: 'checked',
-                onChange: inputChangeFunc,
+                onChange: e => changeCheckButton(e, 'blood'),
               })(
                 <RadioGroup style={{ float: 'left' }} defaultValue="b">
                   <RadioButton value="o">O</RadioButton>
@@ -212,13 +204,13 @@ const Info = Form.create({
           {...formItemLayout}
           label="ศาสนา"
         >
-          {getFieldDecorator('blood', {
+          {getFieldDecorator('religion', {
             rules: [{ required: true, message: 'Firstname is required!' }],
             initialValue: ['พุทธ'],
             valuePropName: 'checked',
-            onChange: inputChangeFunc,
+            onChange: e => changeCheckButton(e, 'religion'),
           })(
-            <RadioGroup style={{ float: 'left' }} defaultValue="พุทธ">
+            <RadioGroup title="info" style={{ float: 'left' }} defaultValue="พุทธ">
               <RadioButton value="พุทธ">พุทธ</RadioButton>
               <RadioButton value="คริสต์">คริสต์</RadioButton>
               <RadioButton value="อิสลาม">อิสลาม</RadioButton>

@@ -47,8 +47,8 @@ class StudentProfile extends Component {
     return (
       <div>
         <RegisterForm stepContent={stepContent} />
-        <Profile />
         {/* <Profile />
+        <Profile />
         <Address /> */}
       </div>
     )
