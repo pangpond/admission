@@ -20,11 +20,13 @@ import Profile from '../components/Form/Profile/'
 import Address from '../components/Form/Address'
 import UI from '../components/Form/UI'
 import FormIndex from '../components/Form/'
+import RegisterForm from '../components/Form/Register'
 
 class StudentProfile extends Component {
   render() {
     return (
       <div>
+        <RegisterForm />
         <Profile />
         {/* <Profile />
         <Address /> */}
