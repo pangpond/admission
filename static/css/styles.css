@@ -12,8 +12,8 @@
   border-radius: 6px;
   background-color: #fafafa;
   min-height: 200px;
-  text-align: center;
-  padding-top: 80px;
+  /* text-align: center; */
+  padding: 80px 20px;
 }
 
 .steps-action {

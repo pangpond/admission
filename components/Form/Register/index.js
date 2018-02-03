@@ -5,20 +5,20 @@ const { Step } = Steps
 
 const steps = [
   {
-    title: 'ข้อมูลส่วนตัว',
-    content: 'First-content',
+    title: 'นักเรียน',
+    content: 'ข้อมูลส่วนตัว, ที่อยู่',
   },
   {
     title: 'การศึกษา',
-    content: 'Second-content',
+    content: 'โรงเรียนเดิม, แผนการเรียนที่สมัคร',
   },
   {
     title: 'ผู้ปกครอง',
-    content: 'Last-content',
+    content: 'บิดา-มารดา, ผู้ปกครอง',
   },
   {
     title: 'แผนที่และการเดินทาง',
-    content: 'Last-content',
+    content: 'จากบ้านมายังโรงเรียน',
   },
 ]
 
@@ -43,6 +43,7 @@ export default class RegisterForm extends Component {
   }
   render() {
     const { current } = this.state
+    const { stepContent } = this.props
     return (
       <div>
         <Steps current={current}>
@@ -55,7 +56,7 @@ export default class RegisterForm extends Component {
             />
           ))}
         </Steps>
-        <div className="steps-content">{steps[this.state.current].content}</div>
+        <div className="steps-content">{stepContent[this.state.current].content}</div>
         <div className="steps-action">
           {this.state.current > 0 && (
             <Button size="large" style={{ marginRight: 8 }} onClick={() => this.prev()}>
