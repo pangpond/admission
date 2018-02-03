@@ -228,7 +228,7 @@ const Info = Form.create({
 
         <FormItem {...formItemLayout}>
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem label="สัญชาติ">
+            <FormItem label="สัญชาติ" defaultValue="ไทย">
               {getFieldDecorator('nationality', {
                 rules: [
                   {
@@ -236,8 +236,9 @@ const Info = Form.create({
                     message: 'Please input your nationality',
                   },
                 ],
+                initialValue: 'ไทย',
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your nationality" />)}
+              })(<Input title="info"  />)}
             </FormItem>
           </Col>
           <Col span={2}>
@@ -246,7 +247,7 @@ const Info = Form.create({
             </span>
           </Col>
           <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="เชื้อชาติ">
+            <FormItem {...formItemLayout} label="เชื้อชาติ" defaultValue="ไทย">
               {getFieldDecorator('race', {
                 rules: [
                   {
@@ -273,16 +274,10 @@ const Info = Form.create({
         </FormItem>
         <FormItem {...formItemLayout}>
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem label="น้ำหนัก" required>
+            <FormItem label="น้ำหนัก">
               {getFieldDecorator('weight', {
-                validateFirst: true,
-                setFieldsValue: [50],
-                initialValue: [50],
-                valuePropName: 'value',
                 rules: [{ required: true, message: 'Firstname is required!' }],
-                // onChange: inputChangeFunc,
-
-              })(<InputNumber title="info" min={30} max={200} desfaultValue={50}onChange={changeWeight} />)}
+              })(<InputNumber title="info" min={30} max={200} onChange={changeWeight} />)}
             </FormItem>
           </Col>
           <Col span={2}>
@@ -292,7 +287,9 @@ const Info = Form.create({
           </Col>
           <Col {...colTwiceLayout}>
             <FormItem {...formItemLayout} label="ส่วนสูง">
-              <InputNumber title="info" min={100} max={200} defaultValue={150} onChange={changeHeight} />
+              {getFieldDecorator('height', {
+                rules: [{ required: true, message: 'Firstname is required!' }],
+              })(<InputNumber title="info" min={100} max={200} onChange={changeHeight} />)}
             </FormItem>
           </Col>
         </FormItem>
