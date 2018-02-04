@@ -46,4 +46,5 @@
 .ant-card .ant-steps-item-process .ant-steps-item-icon {
   background: rgb(136, 136, 136);
   border-color: #6d6d6d;
+  font-weight: 200;
 }
