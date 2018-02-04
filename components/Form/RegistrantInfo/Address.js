@@ -75,74 +75,105 @@ const colTrippleTailLayout = {
 }
 
 class Address extends Component {
+  constructor(props) {
+    super(props)
+    this.inputChange = this.inputChange.bind(this)
+  }
+
   state = {
-    checkNick: false,
-    cloneAddress : true,
+    cloneAddress: true,
   }
   inputChange = (e) => {
     const { inputChange } = this.props
     const { id, title, value } = e.target
     inputChange(title, id, value)
+
+    if (this.state.cloneAddress && title === 'address') {
+      inputChange('presentAddress', id, value)
+    }
   }
   changeWeight = (value) => {
     const { inputChange } = this.props
     inputChange('info', 'weight', value)
   }
-
   changeHeight = (value) => {
     const { inputChange } = this.props
     inputChange('info', 'height', value)
   }
-
   changeCheckButton = (e, name) => {
     const { inputChange } = this.props
     inputChange('info', name, e.target.value)
   }
-
   toggleCloneAddress = (checked) => {
     this.setState({
       cloneAddress: checked,
     })
   }
-
   handleChangeAddress = (address) => {
     const {
-      s: prev_edu_name,
-      a: prev_edu_sub_district,
-      d: prev_edu_district,
-      p: prev_edu_province
+      a: subDistrict,
+      d: district,
+      p: province,
+      z: zipcode,
     } = address
+    const { inputChange } = this.props
+    inputChange('address', 'subDistrict', subDistrict)
+    inputChange('address', 'district', district)
+    inputChange('address', 'province', province)
+    inputChange('address', 'zipcode', zipcode)
+
+    if (this.state.cloneAddress) {
+      inputChange('presentAddress', 'subDistrict', subDistrict)
+      inputChange('presentAddress', 'district', district)
+      inputChange('presentAddress', 'province', province)
+      inputChange('presentAddress', 'zipcode', zipcode)
+    }
+  }
+  handleChangePresentAddress = (address) => {
+    const {
+      a: subDistrict,
+      d: district,
+      p: province,
+      z: zipcode,
+    } = address
+    const { inputChange } = this.props
+    inputChange('presentAddress', 'subDistrict', subDistrict)
+    inputChange('presentAddress', 'district', district)
+    inputChange('presentAddress', 'province', province)
+    inputChange('presentAddress', 'zipcode', zipcode)
   }
   render() {
     const { getFieldDecorator } = this.props.form
     const { cloneAddress } = this.state
 
     const defaultAddress = {
-      s: this.props.prev_edu_name,
-      a: this.props.prev_edu_sub_district,
-      d: this.props.prev_edu_district,
-      p: this.props.prev_edu_province,
+      a: this.props.subDistrict,
+      d: this.props.district,
+      p: this.props.province,
+      z: this.props.zipcode,
     }
 
-    const cloneAddressLabel = cloneAddress ? 'ใช้ที่อยู่ตามบัตรประชาชน' : 'ใช้ที่อยู่ใหม่'
+    const cloneAddressLabel = cloneAddress ? 'ใช้ที่อยู่เดียวกับที่อยู่ตามบัตรประชาชน' : 'ใช้ที่อยู่ใหม่'
 
+    // console.log(this.props.address)
     return (
       <Row gutter={16}>
         <Col {...colLayout}>
           <Divider>ที่อยู่ตามบัตรประชาชน</Divider>
           <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
-            {getFieldDecorator('mobile', {
-              rules: [{ required: true, message: 'Firstname is required!' }],
-              onChange: this.inputChangeFunc,
-            })(<Input title="info" placeholder="Please input your name" />)}
+            {getFieldDecorator('address', {
+              rules: [{ required: true, message: 'กรุณาระบุ บ้านเลขที่ หมู่บ้าน คอนโด' }],
+              initialValue: this.props.address.value,
+              onChange: this.inputChange,
+            })(<Input title="address" placeholder="บ้านเลขที่ หมู่บ้าน คอนโด" />)}
           </FormItem>
           <FormItem {...formItemLayout}>
             <Col {...colTrippleLayout} style={{ marginBottom: '16px' }}>
               <FormItem {...formItemLayout} label="หมู่">
-                {getFieldDecorator('mobile', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
+                {getFieldDecorator('moo', {
+                  rules: [{ required: true, message: 'กรุณาระบุ ' }],
+                  onChange: this.inputChange,
+                })(<Input title="address" placeholder="หมู่" />)}
               </FormItem>
             </Col>
             <Col span={1}>
@@ -152,10 +183,10 @@ class Address extends Component {
             </Col>
             <Col {...colTrippleLayout}>
               <FormItem {...formItemLayout} label="ซอย">
-                {getFieldDecorator('email', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
+                {getFieldDecorator('soi', {
+                  rules: [{ required: true, message: 'กรุณาระบุ ซอย' }],
+                  onChange: this.inputChange,
+                })(<Input title="address" placeholder="ซอย" />)}
               </FormItem>
             </Col>
             <Col span={1}>
@@ -165,10 +196,10 @@ class Address extends Component {
             </Col>
             <Col {...colTrippleTailLayout}>
               <FormItem {...formItemLayout} label="ถนน">
-                {getFieldDecorator('email', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
+                {getFieldDecorator('street', {
+                  rules: [{ required: true, message: 'กรุณาระบุ ' }],
+                  onChange: this.inputChange,
+                })(<Input title="address" placeholder="ถนน" />)}
               </FormItem>
             </Col>
           </FormItem>
@@ -194,71 +225,77 @@ class Address extends Component {
 
           <Divider>ที่อยู่ปัจจุบัน</Divider>
           <Row>
-            <Col span={24} style={{ textAlign: 'right' }}>
-            {cloneAddressLabel} <Switch defaultChecked onChange={this.toggleCloneAddress} />
+            <Col span={24} style={{ textAlign: 'right', marginBottom: '35px' }}>
+              {cloneAddressLabel} <Switch defaultChecked onChange={this.toggleCloneAddress} />
             </Col>
           </Row>
-          <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
-            {getFieldDecorator('mobile', {
-              rules: [{ required: true, message: 'Firstname is required!' }],
-              onChange: this.inputChangeFunc,
-            })(<Input title="info" placeholder="Please input your name" />)}
-          </FormItem>
-          <FormItem {...formItemLayout}>
-            <Col {...colTrippleLayout} style={{ marginBottom: '16px' }}>
-              <FormItem {...formItemLayout} label="หมู่">
-                {getFieldDecorator('mobile', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
-              </FormItem>
-            </Col>
-            <Col span={1}>
-              <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                  &nbsp;
-              </span>
-            </Col>
-            <Col {...colTrippleLayout}>
-              <FormItem {...formItemLayout} label="ซอย">
-                {getFieldDecorator('email', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
-              </FormItem>
-            </Col>
-            <Col span={1}>
-              <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                  &nbsp;
-              </span>
-            </Col>
-            <Col {...colTrippleTailLayout}>
-              <FormItem {...formItemLayout} label="ถนน">
-                {getFieldDecorator('email', {
-                  rules: [{ required: true, message: 'Firstname is required!' }],
-                  onChange: this.inputChangeFunc,
-                })(<Input title="info" placeholder="Please input your name" />)}
-              </FormItem>
-            </Col>
-          </FormItem>
-          <Typeahead
-            kind="address"
-            renderResult={(data) => {
-              const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
-              const districtLabel = data.p === 'กรุงเทพมหานคร' ? 'เขต' : 'อำเภอ'
-              const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
-              return (
-                <div>
-                  {subDistrictLabel}
-                  <b>{data.d}</b> {districtLabel}
-                  <b>{data.a}</b> {provinceLabel}
-                  <b>{data.p}</b> รหัสไปรษณีย์
-                  <b>{data.z}</b>
-                </div>
-              )
-            }}
-            onAddressSelected={addressObject => handleChangeAddress(addressObject)}
-            defaultAddress={defaultAddress}
-          />
+          {
+            !cloneAddress ? (
+              <div>
+                <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
+                  {getFieldDecorator('presentAddress', {
+                    rules: [{ required: !cloneAddress, message: 'กรุณาระบุ ' }],
+                    onChange: this.inputChange,
+                  })(<Input title="presentAddress" placeholder="Please input your name" />)}
+                </FormItem>
+                <FormItem {...formItemLayout}>
+                  <Col {...colTrippleLayout} style={{ marginBottom: '16px' }}>
+                    <FormItem {...formItemLayout} label="หมู่">
+                      {getFieldDecorator('presentMoo', {
+                        rules: [{ required: !cloneAddress, message: 'กรุณาระบุ ' }],
+                        onChange: this.inputChange,
+                      })(<Input title="presentAddress" placeholder="Please input your name" />)}
+                    </FormItem>
+                  </Col>
+                  <Col span={1}>
+                    <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                        &nbsp;
+                    </span>
+                  </Col>
+                  <Col {...colTrippleLayout}>
+                    <FormItem {...formItemLayout} label="ซอย">
+                      {getFieldDecorator('presentSoi', {
+                        rules: [{ required: !cloneAddress, message: 'กรุณาระบุ ' }],
+                        onChange: this.inputChange,
+                      })(<Input title="presentAddress" placeholder="Please input your name" />)}
+                    </FormItem>
+                  </Col>
+                  <Col span={1}>
+                    <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                        &nbsp;
+                    </span>
+                  </Col>
+                  <Col {...colTrippleTailLayout}>
+                    <FormItem {...formItemLayout} label="ถนน">
+                      {getFieldDecorator('presentStreet', {
+                        rules: [{ required: !cloneAddress, message: 'กรุณาระบุ ' }],
+                        onChange: this.inputChange,
+                      })(<Input title="presentAddress" placeholder="Please input your name" />)}
+                    </FormItem>
+                  </Col>
+                </FormItem>
+                <Typeahead
+                  kind="address"
+                  renderResult={(data) => {
+                    const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
+                    const districtLabel = data.p === 'กรุงเทพมหานคร' ? 'เขต' : 'อำเภอ'
+                    const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
+                    return (
+                      <div>
+                        {subDistrictLabel}
+                        <b>{data.d}</b> {districtLabel}
+                        <b>{data.a}</b> {provinceLabel}
+                        <b>{data.p}</b> รหัสไปรษณีย์
+                        <b>{data.z}</b>
+                      </div>
+                    )
+                  }}
+                  onAddressSelected={addressObject => this.handleChangePresentAddress(addressObject)}
+                  defaultAddress={defaultAddress}
+                />
+              </div>
+            ) : null
+          }
         </Col>
       </Row>
     )
@@ -269,5 +306,7 @@ const mapDispatchToProps = dispatch => ({
   inputChange: bindActionCreators(inputChange, dispatch),
 })
 
-export default Form.create()(connect(null, mapDispatchToProps)(Address))
-
+export default Form.create({
+  onFieldsChange(props, changedFields) {
+    props.onChange(changedFields)
+  }})(connect(null, mapDispatchToProps)(Address))

@@ -60,8 +60,8 @@ const Typeahead: React.Component<TypeaheadInputType> = compose(
     required
   >
     <Input
-      title="address"
-      placeholder="Please input your name"
+      title={props.label}
+      placeholder={props.label}
       onBlur={() => setTimeout(() => props.setOpen(false), 400)}
       onFocus={() => props.setOpen(true)}
       value={props.value}
@@ -70,8 +70,8 @@ const Typeahead: React.Component<TypeaheadInputType> = compose(
 
     {props.options.length && props.value.length && props.open ? (
       <Input
-        title="address"
-        placeholder="Please input your name"
+        title={props.label}
+        placeholder={props.label}
         onChange={() => null}
         value={props.options[0][props.filterOption]}
         className="typeahead-input-hint"

@@ -3,6 +3,10 @@ import { Col, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 class DisplayForm extends Component {
+  componentDidUpdate() {
+    const { state } = this.props
+    localStorage.setItem('_admission', JSON.stringify(state, null, 2))
+  }
   render() {
     const { state } = this.props
     return (

@@ -26,9 +26,13 @@ const cardTitle = (step, title) => (
 )
 
 class RegistrantInfo extends Component {
+  constructor() {
+    super()
+    this.getData = this.getData.bind(this)
+  }
   state = {
     fields: {
-      firstname: { value: '' },
+      firstname: { value: '12' },
       lastname: { value: '' },
       gender: { value: '' },
       blood: { value: '' },
@@ -39,16 +43,77 @@ class RegistrantInfo extends Component {
       email: { value: '' },
       weight: { value: '' },
       height: { value: '' },
-      studentCloneAddress: { value: false },
+      address: { value: null },
+      moo: { value: '' },
+      soi: { value: '' },
+      street: { value: '' },
+      presentAddress: { value: '' },
+      presentMoo: { value: '' },
+      presentSoi: { value: '' },
+      presentStreet: { value: '' },
     },
+  }
+  componentDidMount() {
+    // this.getData()
+  }
+
+  // componentWillReceiveProps() {
+  //   const data = localStorage.getItem('_admission')
+  //   if (data) {
+  //     const admission = JSON.parse(data)
+
+  //     console.log(admission.data.address.moo)
+  //     console.log(admission.data)
+
+  //     this.setState({
+  //       fields: {
+  //         ...this.state.fields,
+  //         ...admission.data.info,
+  //         address: { value: admission.data.address.adress },
+  //         moo: { value: admission.data.address.moo },
+  //         soi: { value: admission.data.address.soi },
+  //         street: { value: admission.data.address.street },
+  //         presentAddress: { value: admission.data.presentAddress.adress },
+  //         presentMoo: { value: admission.data.presentAddress.moo },
+  //         presentSoi: { value: admission.data.presentAddress.soi },
+  //         presentStreet: { value: admission.data.presentAddress.street },
+  //       },
+  //     })
+  //   }
+  // }
+  getData() {
+    const admission = JSON.parse(localStorage.getItem('_admission'))
+    if (admission) {
+      this.setState({
+        fields: {
+          ...this.state.fields,
+          // ...admission.data.info,
+          address: { value: admission.data.address.adress },
+          moo: { value: admission.data.address.moo },
+          soi: { value: admission.data.address.soi },
+          street: { value: admission.data.address.street },
+          presentAddress: { value: admission.data.presentAddress.adress },
+          presentMoo: { value: admission.data.presentAddress.moo },
+          presentSoi: { value: admission.data.presentAddress.soi },
+          presentStreet: { value: admission.data.presentAddress.street },
+        },
+      })
+    }
+    console.log(admission)
+    // return data ? JSON.parse(data) : this.state
   }
   handleFormChange = (changedFields) => {
     this.setState({
       fields: { ...this.state.fields, ...changedFields },
     })
+    // console.log(this.state.fields)
+    // localStorage.setItem('_admission', JSON.stringify(this.state, null, 2))
   }
+
   render() {
     const { fields } = this.state
+    // const fields = this.getData()
+
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>
