@@ -144,7 +144,6 @@ const Info = Form.create({
   return (
     <Row gutter={16}>
       <Col {...colLayout}>
-
         <FormItem {...formItemLayout}>
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
             <FormItem {...formItemLayout} label="ชื่อ">

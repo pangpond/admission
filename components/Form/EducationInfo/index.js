@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Row, Col, Card } from 'antd'
-import Info from './Info'
-import Address from './Address'
-
-const { Meta } = Card
+import School from './School'
+// import Address from './Address'
 
 const cardLayout = {
   xs: { span: 24 },
@@ -25,7 +23,7 @@ const cardTitle = (step, title) => (
   </div>
 )
 
-class RegistrantInfo extends Component {
+class EducationInfo extends Component {
   state = {
     fields: {
       firstname: { value: '' },
@@ -39,7 +37,6 @@ class RegistrantInfo extends Component {
       email: { value: '' },
       weight: { value: '' },
       height: { value: '' },
-      studentCloneAddress: { value: false },
     },
   }
   handleFormChange = (changedFields) => {
@@ -53,13 +50,13 @@ class RegistrantInfo extends Component {
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>
           <Col {...cardLayout}>
-            <Card title={cardTitle('1.1', 'ข้อมูลส่วนตัวของนักเรียน')} bordered={false}>
-              <Info {...fields} onChange={this.handleFormChange} />
+            <Card title={cardTitle('2.1', 'ข้อมูลสถานศึกษาเดิม')} bordered={false}>
+              <School {...fields} onChange={this.handleFormChange} />
             </Card>
           </Col>
           <Col {...cardLayout}>
-            <Card title={cardTitle('1.2', 'ข้อมูลที่อยู่ของนักเรียน')} bordered={false}>
-              <Address {...fields} onChange={this.handleFormChange} />
+            <Card title={cardTitle('2.2', 'แผนการเรียนที่ต้องการสมัคร')} bordered={false}>
+              ddd
             </Card>
           </Col>
         </Row>
@@ -68,4 +65,4 @@ class RegistrantInfo extends Component {
   }
 }
 
-export default RegistrantInfo
+export default EducationInfo

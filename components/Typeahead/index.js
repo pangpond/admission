@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Row, Col, Radio, Divider } from 'antd'
-import { fieldsEnum } from './finder'
+import { fieldsEnumAddress } from './finderAddress'
+import { fieldsEnumSchool } from './finderSchool'
 import AddressTypeahead from './address'
 
 type AddressFormInputPropType = {
@@ -9,7 +10,9 @@ type AddressFormInputPropType = {
     a: string,
     d: string,
     p: string,
+    z: string,
   },
+  kind: string,
   onAddressSelected: addresObject => void,
   renderResult: data => React.Component,
 }
@@ -31,6 +34,22 @@ const formItemLayout = {
     lg: { span: 24 },
     xl: { span: 24 },
   },
+}
+
+const colTwiceLayout = {
+  xs: { span: 24 },
+  sm: { span: 24 },
+  md: { span: 11 },
+  lg: { span: 11 },
+  xl: { span: 11 },
+}
+
+const colTwiceTailLayout = {
+  xs: { span: 24 },
+  sm: { span: 24 },
+  md: { span: 11 },
+  lg: { span: 11 },
+  xl: { span: 11 },
 }
 
 const colTrippleLayout = {
@@ -64,13 +83,15 @@ class AddressForm extends React.Component {
   props: AddressFormInputPropType
   render() {
     const { addressObj } = this.state
-    const { defaultAddress } = this.props
+    const { defaultAddress, kind } = this.props
     const autoFields = []
 
     const defaultAddressArr = Object.keys(defaultAddress).map((key) => {
       const value = defaultAddress[key]
       return [key, value]
     })
+
+    const fieldsEnum = kind === 'school' ? fieldsEnumSchool : fieldsEnumAddress
 
     return (
       <FormItem>
@@ -128,7 +149,7 @@ class AddressForm extends React.Component {
           let name
           switch (fieldsEnum[key]) {
             case 's':
-              name = 'โรงเรียนที่กำลังศึกษา'
+              name = 'โรงเรียน'
               break
             case 'd':
               name = 'ตำบล/แขวง'
@@ -139,7 +160,9 @@ class AddressForm extends React.Component {
             case 'p':
               name = 'จังหวัด'
               break
-
+            case 'z':
+              name = 'รหัสไปรษณีย์'
+              break
             default:
               name = ''
               break
@@ -149,6 +172,7 @@ class AddressForm extends React.Component {
             <AddressTypeahead
               key={key}
               label={name}
+              kind={kind}
               renderResult={this.props.renderResult}
               onOptionSelected={(result) => {
                 this.setAddressObj(result)
@@ -163,19 +187,34 @@ class AddressForm extends React.Component {
             />
           )
 
+          const layout = kind === 'school' ? colTrippleLayout : colTwiceLayout
+
           if (fieldsEnum[key] !== 's') {
-            const calLayout =
-              fieldsEnum[key] !== 'p' ? { ...colTrippleLayout } : { ...colTrippleTailLayout }
+            const colLayout = kind === 'school' ?
+              fieldsEnum[key] !== 'p' ? layout : colTrippleTailLayout
+              : fieldsEnum[key] !== 'z' ? layout : colTwiceTailLayout
+
             return (
               <div key={key}>
-                <Col {...calLayout} style={{ marginBottom: '16px' }}>
+                <Col {...colLayout} style={{ marginBottom: '48px' }}>
                   {addressTypeahead}
                 </Col>
-                <Col span={1}>
-                  <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                    &nbsp;
-                  </span>
-                </Col>
+                {
+                  kind === 'school' ? (
+                    <Col span={1}>
+                      <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                        &nbsp;
+                      </span>
+                    </Col>
+                  ) : fieldsEnum[key] !== 'a' && fieldsEnum[key] !== 'z' ? (
+                    <Col span={2}>
+                      <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                        &nbsp;
+                      </span>
+                    </Col>
+                  ) : null
+                }
+
               </div>
             )
           }

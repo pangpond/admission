@@ -2,7 +2,8 @@ import { compose, withState, withProps, lifecycle, defaultProps } from 'recompos
 import React, { Component } from 'react'
 
 import Typeahead from './typeahead'
-import { resolveResultbyField } from './finder'
+import { resolveSchoolResultbyField } from './finderSchool'
+import { resolveResultbyField } from './finderAddress'
 
 type AddressInputType = {
   // local state
@@ -18,10 +19,11 @@ type AddressInputType = {
   value: string,
   onOptionSelected: (option: any) => void,
   renderResult: (data: any) => React.Component,
+  kind: string,
 }
 const AddressTypeaheadComponent = (props: AddressInputType) => {
   const {
-    searchStr, setSearchStr, fieldType, options, label, value,
+    searchStr, setSearchStr, fieldType, options, label, value, kind,
   } = props
   if (!fieldType) {
     console.warn('No field type provide')
@@ -30,6 +32,7 @@ const AddressTypeaheadComponent = (props: AddressInputType) => {
 
   return (
     <Typeahead
+      kind={kind}
       label={label}
       displayOption={props.renderResult}
       filterOption={fieldType}
@@ -56,16 +59,16 @@ const AddressTypeahead: Component<AddressInputType> = compose(
       }
     },
   }),
-  withProps(({ searchStr, fieldType, value }) => ({
-    options: resolveResultbyField(fieldType, searchStr.length ? searchStr : value),
+  withProps(({
+    searchStr, fieldType, value, kind,
+  }) => ({
+    options:
+      kind === 'school'
+        ? resolveSchoolResultbyField(fieldType, searchStr.length ? searchStr : value)
+        : resolveResultbyField(fieldType, searchStr.length ? searchStr : value),
   })),
   defaultProps({
-    renderResult: data => (
-      <span>
-        {data.s || <li>ไม่มีโรงเรียนนี้</li>}
-        {` » ${data.d} » ${data.a} » ${data.p}`}
-      </span>
-    ),
+    renderResult: data => <span>{` » ${data.d} » ${data.a} » ${data.p}`}</span>,
     value: '',
   }),
 )(AddressTypeaheadComponent)

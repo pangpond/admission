@@ -17,6 +17,7 @@ type TypeaheadInputType = {
   onChange: (e: any) => void,
   onOptionSelected: (option: any) => void,
   label: string,
+  kind: string,
   clear: boolean => void,
 
   // local props

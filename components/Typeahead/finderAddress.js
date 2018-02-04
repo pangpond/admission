@@ -1,34 +1,25 @@
 import JQL from 'jqljs'
 
 const fieldsEnum = {
-  SCHOOL: 's',
   DISTRICT: 'd',
   AMPHOE: 'a',
   PROVINCE: 'p',
+  ZIPCODE: 'z',
 }
 
+/**
+ * From jquery.Thailand.js line 30 - 128
+ * Search result by FieldsType
+ */
 const preprocess = (data) => {
-  if (!data.data[0].length) {
+  if (!data[0].length) {
     // non-compacted database
     return data
   }
-
+  // compacted database in hierarchical form of:
+  // [["province",[["amphur",[["district",["zip"...]]...]]...]]...]
   const expanded = []
-  const lookup = data.lookup.split('|')
-  const words = data.words.split('|')
-
-  const text = (text) => {
-    const repl = (m) => {
-      const ch = m.charCodeAt(0)
-      return words[ch < 97 ? ch - 65 : 26 + ch - 97]
-    }
-    if (typeof text === 'number') {
-      text = lookup[text]
-    }
-    return text.replace(/[A-Z]/gi, repl)
-  }
-
-  data.data.forEach((provinceEntry) => {
+  data.forEach((provinceEntry) => {
     const province = provinceEntry[0]
     const amphurList = provinceEntry[1]
     amphurList.forEach((amphurEntry) => {
@@ -36,13 +27,13 @@ const preprocess = (data) => {
       const districtList = amphurEntry[1]
       districtList.forEach((districtEntry) => {
         const district = districtEntry[0]
-        const schoolList = districtEntry[1]
-        schoolList.forEach((school) => {
+        const zipCodeList = districtEntry[1]
+        zipCodeList.forEach((zipCode) => {
           expanded.push({
-            d: text(district),
-            a: text(amphur),
-            p: text(province),
-            s: text(school),
+            d: district,
+            a: amphur,
+            p: province,
+            z: zipCode,
           })
         })
       })
@@ -50,7 +41,7 @@ const preprocess = (data) => {
   })
   return expanded
 }
-const DB = new JQL(preprocess(require('../../static/school.json')))
+const DB = new JQL(preprocess(require('../../static/address.json')))
 
 const resolveResultbyField = (type: string, searchStr: string) => {
   let possibles = []
@@ -66,4 +57,5 @@ const resolveResultbyField = (type: string, searchStr: string) => {
   return possibles
 }
 
-export { resolveResultbyField, fieldsEnum }
+exports.resolveResultbyField = resolveResultbyField
+exports.fieldsEnumAddress = fieldsEnum

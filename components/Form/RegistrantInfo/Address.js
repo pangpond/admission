@@ -1,4 +1,4 @@
-import { Form, Input, Row, Col, Radio, Divider } from 'antd'
+import { Form, Input, Row, Col, Switch, Divider } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -128,10 +128,14 @@ const Address = Form.create({
         ...props.height,
         value: props.height.value,
       }),
+      studentCloneAddress: Form.createFormField({
+        ...props.studentCloneAddress,
+        value: props.studentCloneAddress.value,
+      }),
     }
   },
   onValuesChange(_, values) {
-    console.log(values)
+    // console.log(values)
   },
 })(connect(null, mapDispatchToProps)((props) => {
   const { getFieldDecorator } = props.form
@@ -163,13 +167,6 @@ const Address = Form.create({
       d: prev_edu_district,
       p: prev_edu_province
     } = address
-
-    // this.setState({
-    //   prev_edu_name,
-    //   prev_edu_sub_district,
-    //   prev_edu_district,
-    //   prev_edu_province,
-    // })
   }
 
   const defaultAddress = {
@@ -179,116 +176,26 @@ const Address = Form.create({
     p: props.prev_edu_province,
   }
 
+  const toggleCloneAddress = (checked) => {
+    const { inputChange } = props
+    inputChange('info', 'studentCloneAddress', checked)
+
+    console.log(props.form.getFieldValue('studentCloneAddress'))
+    // props.form.setFieldsValue({ studentCloneAddress: checked })
+    // console.log(props.form.getFieldValue('studentCloneAddress'))
+    // cloneAddressLabel(checked)
+  }
+
+  const cloneAddressLabel = (checked) => {
+    console.log(props.form.getFieldValue('studentCloneAddress'))
+    const label = checked ? 'ใช้ที่อยู่ตามบัตรประชาชน' : 'ใช้ที่อยู่ใหม่'
+    // console.log(label)
+    // props.form.setFieldsValue({ weight: 50 })
+  }
+
   return (
     <Row gutter={16}>
       <Col {...colLayout}>
-        <Divider>ที่อยู่ปัจจุบัน</Divider>
-        <Typeahead
-          renderResult={(data) => {
-            const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
-            const districtLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'อำเภอ'
-            const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
-            return (
-              <div>
-                โรงเรียน
-                <b>{data.s}</b> {provinceLabel}
-                <b>{data.p}</b> {subDistrictLabel}
-                <b>{data.d}</b> {districtLabel}
-                <b>{data.a}</b>
-              </div>
-            )
-          }}
-          onAddressSelected={addressObject => handleChangeAddress(addressObject)}
-          defaultAddress={defaultAddress}
-        />
-        <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
-          {getFieldDecorator('mobile', {
-            rules: [{ required: true, message: 'Firstname is required!' }],
-            onChange: inputChangeFunc,
-          })(<Input title="info" placeholder="Please input your name" />)}
-        </FormItem>
-        <FormItem {...formItemLayout}>
-          <Col {...colTrippleLayout} style={{ marginBottom: '16px' }}>
-            <FormItem {...formItemLayout} label="หมู่">
-              {getFieldDecorator('mobile', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-          <Col span={1}>
-            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                &nbsp;
-            </span>
-          </Col>
-          <Col {...colTrippleLayout}>
-            <FormItem {...formItemLayout} label="ซอย">
-              {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-          <Col span={1}>
-            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                &nbsp;
-            </span>
-          </Col>
-          <Col {...colTrippleTailLayout}>
-            <FormItem {...formItemLayout} label="ถนน">
-              {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-        </FormItem>
-        <FormItem {...formItemLayout}>
-          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem {...formItemLayout} label="ตำบล">
-              {getFieldDecorator('mobile', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-          <Col span={2}>
-            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                &nbsp;
-            </span>
-          </Col>
-          <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="อำเภอ">
-              {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-        </FormItem>
-        <FormItem {...formItemLayout}>
-          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem {...formItemLayout} label="จังหวัด">
-              {getFieldDecorator('mobile', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-          <Col span={2}>
-            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                &nbsp;
-            </span>
-          </Col>
-          <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="รหัสไปรษณีย์">
-              {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-        </FormItem>
         <Divider>ที่อยู่ตามบัตรประชาชน</Divider>
         <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
           {getFieldDecorator('mobile', {
@@ -332,22 +239,63 @@ const Address = Form.create({
             </FormItem>
           </Col>
         </FormItem>
+        <Typeahead
+          kind="address"
+          renderResult={(data) => {
+            const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
+            const districtLabel = data.p === 'กรุงเทพมหานคร' ? 'เขต' : 'อำเภอ'
+            const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
+            return (
+              <div>
+                {subDistrictLabel}
+                <b>{data.d}</b> {districtLabel}
+                <b>{data.a}</b> {provinceLabel}
+                <b>{data.p}</b> รหัสไปรษณีย์
+                <b>{data.z}</b>
+              </div>
+            )
+          }}
+          onAddressSelected={addressObject => handleChangeAddress(addressObject)}
+          defaultAddress={defaultAddress}
+        />
+
+        <Divider>ที่อยู่ปัจจุบัน</Divider>
+        <Switch defaultChecked onChange={toggleCloneAddress} /> {cloneAddressLabel()}
+        <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
+          {getFieldDecorator('mobile', {
+            rules: [{ required: true, message: 'Firstname is required!' }],
+            onChange: inputChangeFunc,
+          })(<Input title="info" placeholder="Please input your name" />)}
+        </FormItem>
         <FormItem {...formItemLayout}>
-          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem {...formItemLayout} label="ตำบล">
+          <Col {...colTrippleLayout} style={{ marginBottom: '16px' }}>
+            <FormItem {...formItemLayout} label="หมู่">
               {getFieldDecorator('mobile', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 onChange: inputChangeFunc,
               })(<Input title="info" placeholder="Please input your name" />)}
             </FormItem>
           </Col>
-          <Col span={2}>
+          <Col span={1}>
             <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
                 &nbsp;
             </span>
           </Col>
-          <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="อำเภอ">
+          <Col {...colTrippleLayout}>
+            <FormItem {...formItemLayout} label="ซอย">
+              {getFieldDecorator('email', {
+                rules: [{ required: true, message: 'Firstname is required!' }],
+                onChange: inputChangeFunc,
+              })(<Input title="info" placeholder="Please input your name" />)}
+            </FormItem>
+          </Col>
+          <Col span={1}>
+            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                &nbsp;
+            </span>
+          </Col>
+          <Col {...colTrippleTailLayout}>
+            <FormItem {...formItemLayout} label="ถนน">
               {getFieldDecorator('email', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 onChange: inputChangeFunc,
@@ -355,29 +303,25 @@ const Address = Form.create({
             </FormItem>
           </Col>
         </FormItem>
-        <FormItem {...formItemLayout}>
-          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem {...formItemLayout} label="จังหวัด">
-              {getFieldDecorator('mobile', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-          <Col span={2}>
-            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-                &nbsp;
-            </span>
-          </Col>
-          <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="รหัสไปรษณีย์">
-              {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
-            </FormItem>
-          </Col>
-        </FormItem>
+        <Typeahead
+          kind="address"
+          renderResult={(data) => {
+            const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
+            const districtLabel = data.p === 'กรุงเทพมหานคร' ? 'เขต' : 'อำเภอ'
+            const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
+            return (
+              <div>
+                {subDistrictLabel}
+                <b>{data.d}</b> {districtLabel}
+                <b>{data.a}</b> {provinceLabel}
+                <b>{data.p}</b> รหัสไปรษณีย์
+                <b>{data.z}</b>
+              </div>
+            )
+          }}
+          onAddressSelected={addressObject => handleChangeAddress(addressObject)}
+          defaultAddress={defaultAddress}
+        />
       </Col>
     </Row>
   )

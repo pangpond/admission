@@ -22,6 +22,7 @@ import UI from '../components/Form/UI'
 import FormIndex from '../components/Form/'
 import RegisterForm from '../components/Form/Register'
 import Info from '../components/Form/RegistrantInfo/'
+import Education from '../components/Form/EducationInfo'
 
 const stepContent = [
   {
@@ -30,7 +31,7 @@ const stepContent = [
   },
   {
     title: 'การศึกษา',
-    content: 'form Education',
+    content: <Education />,
   },
   {
     title: 'ผู้ปกครอง',
