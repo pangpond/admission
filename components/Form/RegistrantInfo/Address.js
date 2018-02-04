@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { inputChange } from '../../../actions'
+import Typeahead from '../../Typeahead/'
 
 const FormItem = Form.Item
 
@@ -155,10 +156,51 @@ const Address = Form.create({
     inputChange('info', name, e.target.value)
   }
 
+  const handleChangeAddress = (address) => {
+    const {
+      s: prev_edu_name,
+      a: prev_edu_sub_district,
+      d: prev_edu_district,
+      p: prev_edu_province
+    } = address
+
+    // this.setState({
+    //   prev_edu_name,
+    //   prev_edu_sub_district,
+    //   prev_edu_district,
+    //   prev_edu_province,
+    // })
+  }
+
+  const defaultAddress = {
+    s: props.prev_edu_name,
+    a: props.prev_edu_sub_district,
+    d: props.prev_edu_district,
+    p: props.prev_edu_province,
+  }
+
   return (
     <Row gutter={16}>
       <Col {...colLayout}>
         <Divider>ที่อยู่ปัจจุบัน</Divider>
+        <Typeahead
+          renderResult={(data) => {
+            const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
+            const districtLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'อำเภอ'
+            const subDistrictLabel = data.p === 'กรุงเทพมหานคร' ? 'แขวง' : 'ตำบล'
+            return (
+              <div>
+                โรงเรียน
+                <b>{data.s}</b> {provinceLabel}
+                <b>{data.p}</b> {subDistrictLabel}
+                <b>{data.d}</b> {districtLabel}
+                <b>{data.a}</b>
+              </div>
+            )
+          }}
+          onAddressSelected={addressObject => handleChangeAddress(addressObject)}
+          defaultAddress={defaultAddress}
+        />
         <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
           {getFieldDecorator('mobile', {
             rules: [{ required: true, message: 'Firstname is required!' }],
