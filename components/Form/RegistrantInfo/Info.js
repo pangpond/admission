@@ -144,24 +144,40 @@ const Info = Form.create({
   return (
     <Row gutter={16}>
       <Col {...colLayout}>
-        <FormItem {...formItemLayout} label="ชื่อ">
-          {getFieldDecorator('firstname', {
-            rules: [{ required: true, message: 'Firstname is required!' }],
-            onChange: inputChangeFunc,
-          })(<Input title="info" placeholder="Please input your name" />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="นามสกุล">
-          {getFieldDecorator('lastname', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your lastname',
-              },
-            ],
-            onChange: inputChangeFunc,
-          })(<Input title="info" placeholder="Please input your name" />)}
-        </FormItem>
 
+        <FormItem {...formItemLayout}>
+          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
+            <FormItem {...formItemLayout} label="ชื่อ">
+              {getFieldDecorator('firstname', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Firstname is required!',
+                  },
+                ],
+                onChange: inputChangeFunc,
+              })(<Input title="info" placeholder="Please input your name" />)}
+            </FormItem>
+          </Col>
+          <Col span={2}>
+            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+              &nbsp;
+            </span>
+          </Col>
+          <Col {...colTwiceLayout}>
+            <FormItem {...formItemLayout} label="นามสกุล">
+              {getFieldDecorator('lastname', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your lastname',
+                  },
+                ],
+                onChange: inputChangeFunc,
+              })(<Input title="info" placeholder="Please input your name" />)}
+            </FormItem>
+          </Col>
+        </FormItem>
         <FormItem {...formItemLayout} >
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
             <FormItem label="เพศ">
@@ -252,18 +268,31 @@ const Info = Form.create({
             </FormItem>
           </Col>
         </FormItem>
-        <FormItem {...formItemLayout} label="เบอร์มือถือ">
-          {getFieldDecorator('mobile', {
-            rules: [{ required: true, message: 'Firstname is required!' }],
-            onChange: inputChangeFunc,
-          })(<Input title="info" placeholder="Please input your name" />)}
+
+        <FormItem {...formItemLayout}>
+          <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
+            <FormItem {...formItemLayout} label="เบอร์มือถือ">
+              {getFieldDecorator('mobile', {
+                rules: [{ required: true, message: 'Firstname is required!' }],
+                onChange: inputChangeFunc,
+              })(<Input title="info" placeholder="Please input your name" />)}
+            </FormItem>
+          </Col>
+          <Col span={2}>
+            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+              &nbsp;
+            </span>
+          </Col>
+          <Col {...colTwiceLayout}>
+            <FormItem {...formItemLayout} label="อีเมล">
+              {getFieldDecorator('email', {
+                rules: [{ required: true, message: 'Firstname is required!' }],
+                onChange: inputChangeFunc,
+              })(<Input title="info" placeholder="Please input your name" />)}
+            </FormItem>
+          </Col>
         </FormItem>
-        <FormItem {...formItemLayout} label="อีเมล">
-          {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Firstname is required!' }],
-            onChange: inputChangeFunc,
-          })(<Input title="info" placeholder="Please input your name" />)}
-        </FormItem>
+
         <FormItem {...formItemLayout}>
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
             <FormItem label="น้ำหนัก">
