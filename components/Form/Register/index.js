@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Steps, Button, message, Icon } from 'antd'
+import { Steps, Button, message, Icon, Row, Col } from 'antd'
 
 const { Step } = Steps
 
@@ -58,26 +58,30 @@ export default class RegisterForm extends Component {
         </Steps>
         <div className="steps-content">{stepContent[this.state.current].content}</div>
         <div className="steps-action">
-          {this.state.current > 0 && (
-            <Button size="large" style={{ marginRight: 8 }} onClick={() => this.prev()}>
-              <Icon type="left" />ย้อนกลับ
-            </Button>
-          )}
-          {this.state.current < steps.length - 1 && (
-            <Button type="primary" size="large" onClick={() => this.next()}>
-              ต่อไป<Icon type="right" />
-            </Button>
-          )}
-          {this.state.current === steps.length - 1 && (
-            <Button
-              type="success"
-              size="large"
-              onClick={() => message.success('Processing complete!')}
-            >
-              <Icon type="save" />
-              บันทึก
-            </Button>
-          )}
+          <Row>
+            <Col span={24} style={{ textAlign: 'right' }}>
+              {this.state.current > 0 && (
+                <Button size="large" style={{ marginRight: 8 }} onClick={() => this.prev()}>
+                  <Icon type="left" />ย้อนกลับ
+                </Button>
+              )}
+              {this.state.current < steps.length - 1 && (
+                <Button type="primary" size="large" onClick={() => this.next()}>
+                  ต่อไป<Icon type="right" />
+                </Button>
+              )}
+              {this.state.current === steps.length - 1 && (
+                <Button
+                  type="success"
+                  size="large"
+                  onClick={() => message.success('Processing complete!')}
+                >
+                  <Icon type="save" />
+                  บันทึก
+                </Button>
+              )}
+            </Col>
+          </Row>
         </div>
       </div>
     )

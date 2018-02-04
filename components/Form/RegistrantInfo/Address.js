@@ -193,7 +193,11 @@ class Address extends Component {
           />
 
           <Divider>ที่อยู่ปัจจุบัน</Divider>
-          <Switch defaultChecked onChange={this.toggleCloneAddress} /> {cloneAddressLabel}
+          <Row>
+            <Col span={24} style={{ textAlign: 'right' }}>
+            {cloneAddressLabel} <Switch defaultChecked onChange={this.toggleCloneAddress} />
+            </Col>
+          </Row>
           <FormItem {...formItemLayout} label="บ้านเลขที่ หมู่บ้าน คอนโด">
             {getFieldDecorator('mobile', {
               rules: [{ required: true, message: 'Firstname is required!' }],
