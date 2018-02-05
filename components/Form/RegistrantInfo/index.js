@@ -137,7 +137,6 @@ class RegistrantInfo extends Component {
   render() {
     const { fields } = this.state
 
-    // console.log(fields)
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>

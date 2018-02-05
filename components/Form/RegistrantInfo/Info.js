@@ -148,13 +148,9 @@ const Info = Form.create({
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
             <FormItem {...formItemLayout} label="ชื่อ">
               {getFieldDecorator('firstname', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Firstname is required!',
-                  },
-                ],
+                rules: [{ required: true, message: 'Firstname is required!' }],
                 onChange: inputChangeFunc,
+                props: { defaultValue: props.firstname.value },
               })(<Input title="info" placeholder="Please input your Firstname" />)}
             </FormItem>
           </Col>
@@ -166,13 +162,9 @@ const Info = Form.create({
           <Col {...colTwiceLayout}>
             <FormItem {...formItemLayout} label="นามสกุล">
               {getFieldDecorator('lastname', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Lastname is required!',
-                  },
-                ],
+                rules: [{ required: true, message: 'Lastname is required!'}],
                 onChange: inputChangeFunc,
+                props: { defaultValue: props.lastname.value },
               })(<Input title="info" placeholder="Please input your Lastname" />)}
             </FormItem>
           </Col>
