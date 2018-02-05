@@ -11,10 +11,11 @@ import StudentProfile from '../components/StudentProfile'
 const { Header, Content, Footer } = Layout
 
 class Admission extends Component {
-  static getInitialProps({
+  static async getInitialProps({
     store, isServer, pathname, query,
   }) {
-    return { data: store.getState().data }
+    const data = await store.getState().data
+    return { data }
   }
 
   render() {

@@ -155,7 +155,7 @@ const Info = Form.create({
                   },
                 ],
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
+              })(<Input title="info" placeholder="Please input your Firstname" />)}
             </FormItem>
           </Col>
           <Col span={2}>
@@ -169,11 +169,11 @@ const Info = Form.create({
                 rules: [
                   {
                     required: true,
-                    message: 'Please input your lastname',
+                    message: 'Lastname is required!',
                   },
                 ],
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
+              })(<Input title="info" placeholder="Please input your Lastname" />)}
             </FormItem>
           </Col>
         </FormItem>
@@ -181,12 +181,11 @@ const Info = Form.create({
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
             <FormItem label="เพศ">
               {getFieldDecorator('gender', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                initialValue: ['female'],
-                valuePropName: 'checked',
+                rules: [{ required: true, message: 'gender is required!' }],
                 onChange: e => changeCheckButton(e, 'gender'),
+                props: { defaultValue: props.religion.value },
               })(
-                <RadioGroup style={{ float: 'left' }} defaultValue="female">
+                <RadioGroup style={{ float: 'left' }}>
                   <RadioButton value="male">ชาย</RadioButton>
                   <RadioButton value="female">หญิง</RadioButton>
                 </RadioGroup>)}
@@ -200,12 +199,11 @@ const Info = Form.create({
           <Col {...colTwiceLayout}>
             <FormItem {...formItemLayout} label="หมู่เลือด">
               {getFieldDecorator('blood', {
-                rules: [{ required: true, message: 'Firstname is required!' }],
-                initialValue: ['b'],
-                valuePropName: 'checked',
+                rules: [{ required: true, message: 'blood is required!' }],
                 onChange: e => changeCheckButton(e, 'blood'),
+                props: { defaultValue: props.blood.value },
               })(
-                <RadioGroup style={{ float: 'left' }} defaultValue="b">
+                <RadioGroup style={{ float: 'left' }} >
                   <RadioButton value="o">O</RadioButton>
                   <RadioButton value="a">A</RadioButton>
                   <RadioButton value="b">B</RadioButton>
@@ -220,12 +218,11 @@ const Info = Form.create({
           label="ศาสนา"
         >
           {getFieldDecorator('religion', {
-            rules: [{ required: true, message: 'Firstname is required!' }],
-            initialValue: ['พุทธ'],
-            valuePropName: 'checked',
+            rules: [{ required: true, message: 'religion is required!' }],
             onChange: e => changeCheckButton(e, 'religion'),
+            props: { defaultValue: props.religion.value },
           })(
-            <RadioGroup title="info" style={{ float: 'left' }} defaultValue="พุทธ">
+            <RadioGroup title="info" style={{ float: 'left' }} >
               <RadioButton value="พุทธ">พุทธ</RadioButton>
               <RadioButton value="คริสต์">คริสต์</RadioButton>
               <RadioButton value="อิสลาม">อิสลาม</RadioButton>
@@ -235,17 +232,12 @@ const Info = Form.create({
 
         <FormItem {...formItemLayout}>
           <Col {...colTwiceLayout} style={{ marginBottom: '16px' }}>
-            <FormItem label="สัญชาติ" defaultValue="ไทย">
+            <FormItem label="สัญชาติ">
               {getFieldDecorator('nationality', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your nationality',
-                  },
-                ],
-                initialValue: 'ไทย',
+                rules: [{ required: true, message: 'Please input your nationality' }],
                 onChange: inputChangeFunc,
-              })(<Input title="info"  />)}
+                props: { defaultValue: props.nationality.value },
+              })(<Input title="info" placeholder="สัญชาติ" />)}
             </FormItem>
           </Col>
           <Col span={2}>
@@ -254,16 +246,12 @@ const Info = Form.create({
             </span>
           </Col>
           <Col {...colTwiceLayout}>
-            <FormItem {...formItemLayout} label="เชื้อชาติ" defaultValue="ไทย">
+            <FormItem {...formItemLayout} label="เชื้อชาติ">
               {getFieldDecorator('race', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your race',
-                  },
-                ],
+                rules: [{ required: true, message: 'Please input your race' }],
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your race" />)}
+                props: { defaultValue: props.race.value },
+              })(<Input title="info" placeholder="เชื้อชาติ" />)}
             </FormItem>
           </Col>
         </FormItem>
@@ -274,7 +262,8 @@ const Info = Form.create({
               {getFieldDecorator('mobile', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
+                props: { defaultValue: props.mobile.value },
+              })(<Input title="info" placeholder="เบอร์มือถือ" />)}
             </FormItem>
           </Col>
           <Col span={2}>
@@ -287,7 +276,8 @@ const Info = Form.create({
               {getFieldDecorator('email', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
                 onChange: inputChangeFunc,
-              })(<Input title="info" placeholder="Please input your name" />)}
+                props: { defaultValue: props.email.value },
+              })(<Input title="info" placeholder="อีเมล" />)}
             </FormItem>
           </Col>
         </FormItem>
@@ -297,6 +287,7 @@ const Info = Form.create({
             <FormItem label="น้ำหนัก">
               {getFieldDecorator('weight', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
+                props: { defaultValue: props.weight.value },
               })(<InputNumber title="info" min={30} max={200} onChange={changeWeight} />)}
             </FormItem>
           </Col>
@@ -309,6 +300,7 @@ const Info = Form.create({
             <FormItem {...formItemLayout} label="ส่วนสูง">
               {getFieldDecorator('height', {
                 rules: [{ required: true, message: 'Firstname is required!' }],
+                props: { defaultValue: props.height.value },
               })(<InputNumber title="info" min={100} max={200} onChange={changeHeight} />)}
             </FormItem>
           </Col>

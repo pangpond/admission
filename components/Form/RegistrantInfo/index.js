@@ -33,25 +33,34 @@ const cardTitle = (step, title) => (
 class RegistrantInfo extends Component {
   state = {
     fields: {
-      firstname: { value: '12' },
+      firstname: { value: '' },
       lastname: { value: '' },
-      gender: { value: '' },
-      blood: { value: '' },
-      religion: { value: '' },
+      gender: { value: 'male' },
+      blood: { value: 'b' },
+      religion: { value: 'พุทธ' },
       nationality: { value: 'ไทย' },
       race: { value: 'ไทย' },
       mobile: { value: '' },
       email: { value: '' },
-      weight: { value: '' },
-      height: { value: '' },
+      weight: { value: '50' },
+      height: { value: '150' },
       address: { value: '' },
-      moo: { value: '14' },
+      moo: { value: '' },
       soi: { value: '' },
       street: { value: '' },
+      subDistrict: { value: '' },
+      district: { value: '' },
+      province: { value: '' },
+      zipcode: { value: '' },
+
       presentAddress: { value: '' },
       presentMoo: { value: '' },
       presentSoi: { value: '' },
       presentStreet: { value: '' },
+      presentSubDistrict: { value: '' },
+      presentDistrict: { value: '' },
+      presentProvince: { value: '' },
+      presentZipcode: { value: '' },
     },
   }
   componentDidMount() {
@@ -89,6 +98,11 @@ class RegistrantInfo extends Component {
             moo: { value: address.moo || this.state.fields.moo.value },
             soi: { value: address.soi || this.state.fields.soi.value },
             street: { value: address.street || this.state.fields.street.value },
+
+            subDistrict: { value: address.subDistrict || this.state.fields.subDistrict.value },
+            district: { value: address.district || this.state.fields.district.value },
+            province: { value: address.province || this.state.fields.province.value },
+            zipcode: { value: address.zipcode || this.state.fields.zipcode.value },
           },
         })
       }
@@ -97,10 +111,19 @@ class RegistrantInfo extends Component {
         this.setState({
           fields: {
             ...this.state.fields,
-            presentAddress: { value: presentAddress.presentAddress || this.state.fields.presentAddress.value },
+            presentAddress: {
+              value: presentAddress.presentAddress || this.state.fields.presentAddress.value,
+            },
             presentMoo: { value: presentAddress.presentMoo || this.state.fields.presentMoo.value },
             presentSoi: { value: presentAddress.presentSoi || this.state.fields.presentSoi.value },
-            presentStreet: { value: presentAddress.presentStreet || this.state.fields.presentStreet.value },
+            presentStreet: {
+              value: presentAddress.presentStreet || this.state.fields.presentStreet.value,
+            },
+            presentSubDistrict: { value: presentAddress.presentSubDistrict || this.state.fields.presentSubDistrict.value },
+            presentDistrict: { value: presentAddress.presentDistrict || this.state.fields.presentDistrict.value },
+            presentProvince: { value: presentAddress.presentProvince || this.state.fields.presentProvince.value },
+            presentZipcode: { value: presentAddress.presentZipcode || this.state.fields.presentZipcode.value },
+
           },
         })
       }
@@ -114,6 +137,7 @@ class RegistrantInfo extends Component {
   render() {
     const { fields } = this.state
 
+    // console.log(fields)
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>
