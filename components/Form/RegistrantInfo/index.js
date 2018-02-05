@@ -44,6 +44,7 @@ class RegistrantInfo extends Component {
       email: { value: '' },
       weight: { value: '50' },
       height: { value: '150' },
+
       address: { value: '' },
       moo: { value: '' },
       soi: { value: '' },
@@ -63,16 +64,15 @@ class RegistrantInfo extends Component {
       presentZipcode: { value: '' },
     },
   }
-  componentDidMount() {
-    this.getData()
-  }
-  getData() {
+  componentWillMount() {
     const { data } = this.props
-
+    this.getData(data)
+  }
+  getData = async (data) => {
     if (Object.keys(data).length !== 0 && data.constructor === Object) {
       if (data.hasOwnProperty('info')) {
         const { info } = data
-        this.setState({
+        await this.setState({
           fields: {
             ...this.state.fields,
             firstname: { value: info.firstname || this.state.fields.firstname.value },
@@ -119,11 +119,19 @@ class RegistrantInfo extends Component {
             presentStreet: {
               value: presentAddress.presentStreet || this.state.fields.presentStreet.value,
             },
-            presentSubDistrict: { value: presentAddress.presentSubDistrict || this.state.fields.presentSubDistrict.value },
-            presentDistrict: { value: presentAddress.presentDistrict || this.state.fields.presentDistrict.value },
-            presentProvince: { value: presentAddress.presentProvince || this.state.fields.presentProvince.value },
-            presentZipcode: { value: presentAddress.presentZipcode || this.state.fields.presentZipcode.value },
-
+            presentSubDistrict: {
+              value:
+                presentAddress.presentSubDistrict || this.state.fields.presentSubDistrict.value,
+            },
+            presentDistrict: {
+              value: presentAddress.presentDistrict || this.state.fields.presentDistrict.value,
+            },
+            presentProvince: {
+              value: presentAddress.presentProvince || this.state.fields.presentProvince.value,
+            },
+            presentZipcode: {
+              value: presentAddress.presentZipcode || this.state.fields.presentZipcode.value,
+            },
           },
         })
       }
@@ -136,7 +144,6 @@ class RegistrantInfo extends Component {
   }
   render() {
     const { fields } = this.state
-
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>

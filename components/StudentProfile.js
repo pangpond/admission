@@ -21,7 +21,7 @@ import Address from '../components/Form/Address'
 import UI from '../components/Form/UI'
 import FormIndex from '../components/Form/'
 import RegisterForm from '../components/Form/Register'
-import Info from '../components/Form/RegistrantInfo/'
+import RegistrantInfo from '../components/Form/RegistrantInfo/'
 import Education from '../components/Form/EducationInfo'
 
 class StudentProfile extends Component {
@@ -29,7 +29,7 @@ class StudentProfile extends Component {
     const stepContent = [
       {
         title: 'นักเรียน',
-        content: <Info data={this.props.data} />,
+        content: <RegistrantInfo data={this.props.data} />,
       },
       {
         title: 'การศึกษา',

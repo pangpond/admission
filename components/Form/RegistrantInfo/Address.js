@@ -84,27 +84,13 @@ class Address extends Component {
   state = {
     cloneAddress: false,
   }
+
   inputChange = (e) => {
     const { inputChange } = this.props
     const { id, title, value } = e.target
     inputChange(title, id, value)
+  }
 
-    if (this.state.cloneAddress && title === 'address') {
-      inputChange('presentAddress', id, value)
-    }
-  }
-  changeWeight = (value) => {
-    const { inputChange } = this.props
-    inputChange('info', 'weight', value)
-  }
-  changeHeight = (value) => {
-    const { inputChange } = this.props
-    inputChange('info', 'height', value)
-  }
-  changeCheckButton = (e, name) => {
-    const { inputChange } = this.props
-    inputChange('info', name, e.target.value)
-  }
   toggleCloneAddress = (checked) => {
     this.setState({
       cloneAddress: checked,
@@ -112,12 +98,11 @@ class Address extends Component {
 
     if (checked) {
       const { inputChange } = this.props
-      console.log(this.props)
+
       inputChange('presentAddress', 'presentAddress', this.props.address.value)
       inputChange('presentAddress', 'presentMoo', this.props.moo.value)
       inputChange('presentAddress', 'presentSoi', this.props.soi.value)
       inputChange('presentAddress', 'presentStreet', this.props.street.value)
-
 
       inputChange('presentAddress', 'presentSubDistrict', this.state.subDistrict)
       inputChange('presentAddress', 'presentDistrict', this.state.district)
@@ -139,6 +124,7 @@ class Address extends Component {
     inputChange('address', 'zipcode', zipcode)
 
     this.setState({
+      ...this.state,
       subDistrict,
       district,
       province,
@@ -244,6 +230,7 @@ class Address extends Component {
               </FormItem>
             </Col>
           </FormItem>
+          { /*
           <Typeahead
             kind="address"
             renderResult={(data) => {
@@ -263,6 +250,7 @@ class Address extends Component {
             onAddressSelected={addressObject => this.handleChangeAddress(addressObject)}
             defaultAddress={defaultAddress}
           />
+          */}
 
           <Divider style={{ marginTop: 0 }}>ที่อยู่ปัจจุบัน</Divider>
           <Row>
@@ -323,7 +311,8 @@ class Address extends Component {
                     </FormItem>
                   </Col>
                 </FormItem>
-                <Typeahead
+                { /*
+                  <Typeahead
                   kind="address"
                   renderResult={(data) => {
                     const provinceLabel = data.p === 'กรุงเทพมหานคร' ? '' : 'จังหวัด'
@@ -342,6 +331,7 @@ class Address extends Component {
                   onAddressSelected={addressObject => this.handleChangePresentAddress(addressObject)}
                   defaultAddress={defaultPresentAddress}
                 />
+                */}
               </div>
             ) : (
               <Row>
