@@ -4,15 +4,19 @@ import withRedux from 'next-redux-wrapper'
 
 import { initStore } from '../store'
 import Wrapper from '../index'
-import Ant from '../components/Ant'
-import Bird from '../components/Bird'
-import Cat from '../components/Cat'
+
 import DisplayForm from '../components/DisplayForm'
 import StudentProfile from '../components/StudentProfile'
 
 const { Header, Content, Footer } = Layout
 
 class Admission extends Component {
+  static getInitialProps({
+    store, isServer, pathname, query,
+  }) {
+    return { data: store.getState().data }
+  }
+
   render() {
     return (
       <Wrapper>
@@ -37,7 +41,7 @@ class Admission extends Component {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-              <StudentProfile />
+              <StudentProfile data={this.props.data} />
             </div>
             <DisplayForm />
           </Content>
@@ -48,4 +52,4 @@ class Admission extends Component {
   }
 }
 
-export default withRedux(initStore, null)(Admission)
+export default withRedux(initStore, state => ({ ...state }))(Admission)

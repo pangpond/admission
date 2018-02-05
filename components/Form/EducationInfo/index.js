@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Row, Col, Card } from 'antd'
+
 import School from './School'
 // import Address from './Address'
 
@@ -46,6 +47,7 @@ class EducationInfo extends Component {
   }
   render() {
     const { fields } = this.state
+    // console.log(store.getState().data)
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <Row gutter={16}>

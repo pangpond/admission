@@ -24,27 +24,27 @@ import RegisterForm from '../components/Form/Register'
 import Info from '../components/Form/RegistrantInfo/'
 import Education from '../components/Form/EducationInfo'
 
-const stepContent = [
-  {
-    title: 'นักเรียน',
-    content: <Info />,
-  },
-  {
-    title: 'การศึกษา',
-    content: <Education />,
-  },
-  {
-    title: 'ผู้ปกครอง',
-    content: 'form Parent',
-  },
-  {
-    title: 'แผนที่และการเดินทาง',
-    content: 'form Map',
-  },
-]
-
 class StudentProfile extends Component {
   render() {
+    const stepContent = [
+      {
+        title: 'นักเรียน',
+        content: <Info data={this.props.data} />,
+      },
+      {
+        title: 'การศึกษา',
+        content: <Education data={this.props.data} />,
+      },
+      {
+        title: 'ผู้ปกครอง',
+        content: 'form Parent',
+      },
+      {
+        title: 'แผนที่และการเดินทาง',
+        content: 'form Map',
+      },
+    ]
+
     return (
       <div>
         <RegisterForm stepContent={stepContent} />

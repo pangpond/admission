@@ -94,7 +94,7 @@ class AddressForm extends React.Component {
     const fieldsEnum = kind === 'school' ? fieldsEnumSchool : fieldsEnumAddress
 
     return (
-      <FormItem>
+      <FormItem style={{ marginBottom: 0 }}>
         <style jsx global>
           {`
             .typeahead-input-wrap {

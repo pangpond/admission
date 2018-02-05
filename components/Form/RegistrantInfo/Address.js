@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Row, Col, Switch, Divider } from 'antd'
+import { Form, Input, Row, Col, Switch, Divider, Button } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -81,7 +81,7 @@ class Address extends Component {
   }
 
   state = {
-    cloneAddress: true,
+    cloneAddress: false,
   }
   inputChange = (e) => {
     const { inputChange } = this.props
@@ -153,9 +153,8 @@ class Address extends Component {
       z: this.props.zipcode,
     }
 
-    const cloneAddressLabel = cloneAddress ? 'ใช้ที่อยู่เดียวกับที่อยู่ตามบัตรประชาชน' : 'ใช้ที่อยู่ใหม่'
+    const cloneAddressLabel = cloneAddress ? 'ใช้ที่อยู่เดียวกับที่อยู่ตามบัตรประชาชน' : 'ใช้ที่อยู่เดียวกับที่อยู่ตามบัตรประชาชน'
 
-    // console.log(this.props.address)
     return (
       <Row gutter={16}>
         <Col {...colLayout}>
@@ -223,10 +222,10 @@ class Address extends Component {
             defaultAddress={defaultAddress}
           />
 
-          <Divider>ที่อยู่ปัจจุบัน</Divider>
+          <Divider style={{ marginTop: 0 }}>ที่อยู่ปัจจุบัน</Divider>
           <Row>
-            <Col span={24} style={{ textAlign: 'right', marginBottom: '35px' }}>
-              {cloneAddressLabel} <Switch defaultChecked onChange={this.toggleCloneAddress} />
+            <Col span={24} style={{ textAlign: 'right', marginBottom: '24px' }}>
+              {cloneAddressLabel} <Switch defaultChecked={cloneAddress} onChange={this.toggleCloneAddress} />
             </Col>
           </Row>
           {
@@ -294,7 +293,14 @@ class Address extends Component {
                   defaultAddress={defaultAddress}
                 />
               </div>
-            ) : null
+            ) : (
+              <Row>
+                <Col span={24} style={{ textAlign: 'center', marginBottom: '3px' }}>
+                  <Button type="dashed" disabled>ไม่ต้องกรอกที่อยู่ปัจจุบัน เนื่องจากใช้ที่อยู่เดียวกับที่อยู่ตามบัตรประชาชน</Button>
+
+                </Col>
+              </Row>
+            )
           }
         </Col>
       </Row>
